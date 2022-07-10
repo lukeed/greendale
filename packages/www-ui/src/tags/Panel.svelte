@@ -10,6 +10,5 @@
 		height: 100%;
 		background-color: lightgrey;
 		border-left: 1px solid grey;
-		padding: 1rem;
 	}
 </style>

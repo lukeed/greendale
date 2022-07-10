@@ -28,7 +28,18 @@
 </div>
 
 <style>
+	.tabs {
+		height: calc(100vh - 2rem - 32px);
+	}
+
+	.tabs-content {
+		overflow-y: auto;
+		padding: 0 0.5rem;
+		max-height: calc(100% - 2rem);
+	}
+
 	.tabs nav {
+		height: 2rem;
 		display: flex;
 		border-bottom: 1px solid blue;
 	}

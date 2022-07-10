@@ -22,6 +22,8 @@
 		</dl>
 	</div>
 
+	<hr>
+
 	<div class="extras">
 		<Tabs labels={['Response', 'Preview']} let:index>
 			{#if index === 0}
@@ -46,7 +48,7 @@
 <style>
 	.core {
 		height: 2rem;
-		margin-bottom: 1rem;
+		padding: 1rem 0.25rem;
 	}
 
 	.core dl {

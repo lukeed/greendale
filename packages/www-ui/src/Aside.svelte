@@ -1,17 +1,28 @@
 <script lang="ts">
 	import Tabs from './tags/Tabs.svelte';
 	import Thumb from './tags/Thumb.svelte';
-	import { suites, recents } from './stores';
+	import { suites, request, recents } from './stores';
+
+	function onreset(ev: ClickEvent) {
+		ev.preventDefault();
+		request.set({
+			method: 'GET',
+			url: 'https://example.com',
+			parameters: [],
+			headers: [],
+			body: null,
+		});
+	}
 </script>
 
 <aside>
-	<button>NEW REQUEST</button>
+	<button class="new" on:click={onreset}>NEW REQUEST</button>
 
 	<hr>
 
 	<Tabs labels={['Recent', 'Saved']} let:index>
 		{#if index === 0}
-			{#each $recents as req}
+			{#each $recents.reverse() as req}
 				<Thumb name={req.name} request={req}/>
 			{:else}
 				<div>
@@ -29,3 +40,12 @@
 		{/if}
 	</Tabs>
 </aside>
+
+<style>
+	.new {
+		display: block;
+		margin: 1rem auto;
+		padding: 0.5rem 1.5rem;
+		height: 2rem;
+	}
+</style>

@@ -23,6 +23,7 @@
 		color: #424242;
 		height: 100vh;
 		width: 100vw;
+		padding: 0;
 	}
 
 	:global(body > *) {
@@ -37,7 +38,12 @@
 	:global(pre),
 	:global(textarea) {
 		color: #424242;
-		background-color: lightgray;
+		background-color: whitesmoke;
 		border-radius: 4px;
+		padding: 0.25rem;
+	}
+
+	:global(code) {
+		color: inherit;
 	}
 </style>

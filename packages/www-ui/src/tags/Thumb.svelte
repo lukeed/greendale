@@ -7,8 +7,9 @@
 	$: title = name || request.name;
 
 	function setActive() {
-		request.name = name || request.name || '';
-		stores.request.set(request);
+		let clone = { ...request };
+		clone.name = name || clone.name;
+		stores.request.set(clone);
 	}
 </script>
 
@@ -17,3 +18,14 @@
 	<span class="method">{ request.method }</span>
 	<span class="url">{ request.url }</span>
 </div>
+
+<style>
+	.req {
+		padding: 1rem 0.5rem;
+		background: white;
+		border-radius: 4px;
+		box-shadow: 0 1px 4px rgba(0,0,0,0.24);
+		margin: 0.25rem -0.25rem;
+		cursor: pointer;
+	}
+</style>

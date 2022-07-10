@@ -7,7 +7,7 @@ export const request = writable<gd.Request>({
 	parameters: [],
 	headers: [],
 	body: null,
-})
+});
 
 // request is in transit
 export const loading = writable(false);
@@ -87,6 +87,7 @@ export async function send(req: gd.Request): Promise<void> {
 	else if (ctype.includes('/x-www-form-urlencoded')) content = await res.formData();
 	else content = await res.arrayBuffer();
 
-	recents.update(arr => arr.concat({ ...req }));
+	let clone = { ...req };
+	recents.update(arr => arr.concat(clone));
 	result.set({ res, time, valid, length, content });
 }

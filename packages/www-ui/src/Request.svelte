@@ -29,6 +29,8 @@
 			<button type="submit">SEND</button>
 		</div>
 
+		<hr>
+
 		<div class="extras">
 			<Tabs labels={['Params', 'Headers', 'Body', 'Validation']} let:index>
 				{#if index === 0}
@@ -52,7 +54,7 @@
 	.core {
 		height: 2rem;
 		display: grid;
-		margin-bottom: 1rem;
+		padding: 1rem 0.25rem;
 		align-items: center;
 		grid-template-columns: max-content auto 3rem;
 		grid-column-gap: 0.25rem;
