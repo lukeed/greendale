@@ -1,11 +1,7 @@
 import * as vscode from 'vscode';
 import HTML from 'greendale-ui/public/index.html';
-import type { Callback, Context } from './index';
 
-export interface Message {
-	type: string;
-	args?: any[];
-}
+import type { Callback } from './index';
 
 let panel: vscode.WebviewPanel | void;
 export const open: Callback = function (ctx) {
@@ -24,15 +20,30 @@ function onreset() {
 	panel = undefined;
 }
 
-function onmessage(msg: Message) {
+function postmessage(msg: gd.Message) {
+	return panel!.webview.postMessage(msg);
+}
+
+async function onmessage(msg: gd.Message) {
 	// load existing requests
 	if (msg.type === 'req:load') {
-		console.log('INSIDE LOAD', msg);
-		panel!.webview.postMessage({
+		return postmessage({
 			type: 'res:load',
-			args: [1, 2, 3],
+			value: await loader(),
 		});
 	}
 
 	console.warn('UNKNOWN MSG REQUEST', msg);
+}
+
+async function loader(): Promise<gd.Suite[]> {
+	let files = await vscode.workspace.findFiles('greendale.js');
+	let i=0, suites: gd.Suite[] = [];
+	for (; i < files.length; i++) {
+		suites.push({
+			file: files[i].fsPath,
+			tests: require(files[i].fsPath),
+		});
+	}
+	return suites;
 }
