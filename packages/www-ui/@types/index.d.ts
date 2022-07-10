@@ -12,6 +12,9 @@ declare namespace gd {
 		}
 	}
 
+	import * as Asserts from 'uvu/assert';
+	export { Asserts };
+
 	export interface Request {
 		/**
 		 * custom name
@@ -26,10 +29,10 @@ declare namespace gd {
 		headers?: Input[];
 		body?: string | null; // TODO
 		/** custom assertion(s) */
-		assert?(response: Response): Promise<void> | void; // boolean?
+		assert?(response: Response, assert: gd.Asserts): Promise<void> | void; // boolean?
 	}
 
-	type Message =
+	export type Message =
 		| { type: 'req:load' }
 		| { type: 'res:load'; value: Suite[] }
 		| { type: 'req:save'; value: Suite }

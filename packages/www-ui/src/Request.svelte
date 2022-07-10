@@ -7,11 +7,13 @@
 	const NOBODY = /GET|HEAD/;
 	const METHODS = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE'];
 
+	let assertion = $request.assert || '';
+	let validation = String(assertion);
+
 	let form: HTMLFormElement;
 	async function onsubmit(ev: Event) {
 		ev.preventDefault();
-		console.log('inside onsubmit', $request);
-		await send($request);
+		await send($request, validation);
 	}
 </script>
 
@@ -44,6 +46,12 @@
 					<textarea name="body" disabled={NOBODY.test($request.method)}>{ $request.body }</textarea>
 				{:else if index === 3}
 					<h4>Response Assertion(s)</h4>
+					<textarea
+						bind:value={validation}
+						autocapitalize="off"
+						spellcheck="false"
+						autocorrect="off"
+					></textarea>
 				{/if}
 			</Tabs>
 		</div>

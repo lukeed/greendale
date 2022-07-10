@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import * as assert from 'uvu/assert';
 
 // active / WIP request to send
 export const request = writable<gd.Request>({
@@ -30,13 +31,15 @@ export const result = writable<Result>({
 	//
 });
 
-export async function send(req: gd.Request): Promise<void> {
+export async function send(req: gd.Request, validation?: string): Promise<void> {
 	let headers = new Headers;
 	let url = new URL(req.url, 'http://localhost:8080'); // TODO: $baseurl here
 
-	if (/GET|HEAD/.test(req.method)) {
-		req.body = undefined;
-	}
+	// TODO: use codemirror/etc for editor w/ intellisense
+	// TODO: have user write the contents w/ TLA -> new Function(args, contents);
+	if (validation) req.assert = eval(validation);
+
+	if (/GET|HEAD/.test(req.method)) req.body = undefined;
 
 	(req.headers || []).forEach(input => {
 		if (input.enable) headers.append(input.key, input.value);
@@ -68,10 +71,11 @@ export async function send(req: gd.Request): Promise<void> {
 	if (typeof req.assert === 'function') {
 		try {
 			let copy = new Response(res.body, res);
-			let x = await req.assert(copy);
+			let x = await req.assert(copy, assert);
 			valid = x == null || !!x;
 		} catch (err) {
 			// TODO: print error
+			console.error('VALIDATION ERROR', err);
 			valid = false;
 		}
 	}

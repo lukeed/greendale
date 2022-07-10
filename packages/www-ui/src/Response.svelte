@@ -25,7 +25,7 @@
 	<hr>
 
 	<div class="extras">
-		<Tabs labels={['Response', 'Preview']} let:index>
+		<Tabs labels={['Response', 'Validation']} let:index>
 			{#if index === 0}
 				<header>
 					<h4>Headers</h4>
@@ -39,7 +39,8 @@
 
 				<pre><code>{ body }</code></pre>
 			{:else if index === 1}
-				preview
+				<h4>Response Assertion(s)</h4>
+				<pre><code>{ $result.valid }</code></pre>
 			{/if}
 		</Tabs>
 	</div>
