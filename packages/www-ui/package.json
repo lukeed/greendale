@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "name": "greendale-ui",
+  "scripts": {
+    "dev": "tsm bin/dev.ts",
+    "build": "tsm bin/build.ts"
+  },
+  "dependencies": {
+    "svelte": "3.49.0"
+  }
+}

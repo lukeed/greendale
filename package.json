@@ -1,5 +1,11 @@
 {
   "private": true,
+  "scripts": {
+    "prevscode:build": "npm run www:build",
+    "vscode:build": "npm run build -C packages/vscode-greendale",
+    "www:build": "npm run build -C packages/www-ui",
+    "www:dev": "npm run dev -C packages/www-ui"
+  },
   "devDependencies": {
     "@types/node": "18.0.3",
     "esbuild": "0.14.48",

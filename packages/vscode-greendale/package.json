@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "name": "vscode-greendale",
+  "scripts": {
+    "build": "tsm bin/build.ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "1.69.0",
+    "greendale-ui": "workspace:*"
+  }
+}
