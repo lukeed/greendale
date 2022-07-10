@@ -9,7 +9,7 @@ await esbuild.build({
 	platform: 'node',
 	entryPoints: [INPUT],
 	outfile: OUTPUT,
-	format: 'esm',
+	format: 'cjs',
 	loader: {
 		'.html': 'text'
 	},

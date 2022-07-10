@@ -2,11 +2,28 @@
   "private": true,
   "version": "0.0.0",
   "name": "vscode-greendale",
+  "main": "./output/extension.js",
   "scripts": {
-    "build": "tsm bin/build.ts"
+    "build": "tsm bin/build.ts",
+    "vscode:prepublish": "npm run build"
   },
   "devDependencies": {
     "@types/vscode": "1.69.0",
     "greendale-ui": "workspace:*"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "publisher": "lukeed.greendale",
+  "activationEvents": [
+    "onCommand:greendale.open"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "greendale.open",
+        "title": "Open Greendale Viewer"
+      }
+    ]
   }
 }
