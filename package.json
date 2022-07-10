@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@types/node": "18.0.3",
+    "esbuild": "0.14.48",
+    "tsm": "2.2.1"
+  }
+}
