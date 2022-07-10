@@ -26,7 +26,13 @@ function onreset() {
 
 function onmessage(msg: Message) {
 	// load existing requests
-	if (msg.type === 'load') {
+	if (msg.type === 'req:load') {
 		console.log('INSIDE LOAD', msg);
+		panel!.webview.postMessage({
+			type: 'res:load',
+			args: [1, 2, 3],
+		});
 	}
+
+	console.warn('UNKNOWN MSG REQUEST', msg);
 }
