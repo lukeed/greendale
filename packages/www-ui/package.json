@@ -12,7 +12,7 @@
     "uvu": "0.5.6"
   },
   "devDependencies": {
-    "svelte-preprocess-esbuild": "2.0.0",
+    "svelte-preprocess-esbuild": "3.0.0",
     "watchlist": "0.3.1"
   }
 }
