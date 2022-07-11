@@ -22,8 +22,8 @@
 
 	<Tabs labels={['Recent', 'Saved']} let:index>
 		{#if index === 0}
-			{#each $recents.reverse() as req}
-				<Thumb name={req.name} request={req}/>
+			{#each $recents.reverse() as request}
+				<Thumb {request}/>
 			{:else}
 				<div>
 					<span>no recent activity</span>
@@ -32,7 +32,7 @@
 		{:else if index === 1}
 			{#each $suites as ss (ss.file)}
 				{#each Object.keys(ss.tests) as key (key)}
-					<Thumb name={key} request={ss.tests[key]}/>
+					<Thumb request={ss.tests[key]}/>
 				{/each}
 			{:else}
 			<div><span>no saved suites yet</span></div>

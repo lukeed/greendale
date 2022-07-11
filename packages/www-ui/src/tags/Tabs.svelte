@@ -20,6 +20,12 @@
 				on:click={onselect}
 			>{ txt }</a>
 		{/each}
+
+		{#if $$slots.right}
+			<div class="right">
+				<slot name="right"/>
+			</div>
+		{/if}
 	</nav>
 
 	<div class="tabs-content">
@@ -41,7 +47,15 @@
 	.tabs nav {
 		height: 2rem;
 		display: flex;
+		position: relative;
 		border-bottom: 1px solid blue;
+	}
+
+	nav .right {
+		top: 50%;
+		right: 0.25rem;
+		position: absolute;
+		transform: translateY(-50%);
 	}
 
 	nav a {

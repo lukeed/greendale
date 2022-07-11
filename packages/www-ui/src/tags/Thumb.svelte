@@ -1,20 +1,17 @@
 <script lang="ts">
+	import { klona } from 'klona/json';
 	import * as stores from '../stores';
 
-	export let name = '';
 	export let request: gd.Request;
 
-	$: title = name || request.name;
-
 	function setActive() {
-		let clone = { ...request };
-		clone.name = name || clone.name;
-		stores.request.set(clone);
+		stores.request.set(
+			klona(request)
+		);
 	}
 </script>
 
 <div class="req" on:click|stopPropagation={setActive}>
-	{#if title}<strong>{ title }</strong>{/if}
 	<span class="method">{ request.method }</span>
 	<span class="url">{ request.url }</span>
 </div>

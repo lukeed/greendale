@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { klona } from 'klona/json';
 	import Tabs from './tags/Tabs.svelte';
 	import Panel from './tags/Panel.svelte';
 	import Repeat from './tags/Repeat.svelte';
-	import { request, send } from './stores';
+	import { request, suites, send } from './stores';
+	import { postmessage } from './bridge';
 
 	const NOBODY = /GET|HEAD/;
 	const METHODS = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE'];
@@ -14,6 +16,32 @@
 	async function onsubmit(ev: Event) {
 		ev.preventDefault();
 		await send($request, validation);
+	}
+
+	function onsave(ev: Event) {
+		ev.preventDefault();
+
+		let arr = klona($suites);
+		let req = klona($request);
+
+		console.log({ suites: arr, req });
+
+		if (arr.length > 1) {
+			console.log('TODO: track current suite');
+		}
+
+		let suite: gd.Suite = arr[0] || {
+			file: null,
+			tests: {},
+		};
+
+		// merge current request into suites
+		suite.tests[`${req.method} ${req.url}`] = req;
+
+		postmessage({
+			type: 'req:save',
+			value: suite,
+		});
 	}
 </script>
 
@@ -35,6 +63,8 @@
 
 		<div class="extras">
 			<Tabs labels={['Params', 'Headers', 'Body', 'Validation']} let:index>
+				<button slot="right" on:click={onsave}>SAVE</button>
+
 				{#if index === 0}
 					<h4>Query Parameters</h4>
 					<Repeat value={$request.parameters}/>
@@ -43,7 +73,14 @@
 					<Repeat value={$request.headers}/>
 				{:else if index === 2}
 					<h4>Request Body</h4>
-					<textarea name="body" disabled={NOBODY.test($request.method)}>{ $request.body }</textarea>
+					<textarea
+						name="body"
+						disabled={NOBODY.test($request.method)}
+						bind:value={ $request.body }
+						autocapitalize="off"
+						spellcheck="false"
+						autocorrect="off"
+					></textarea>
 				{:else if index === 3}
 					<h4>Response Assertion(s)</h4>
 					<textarea

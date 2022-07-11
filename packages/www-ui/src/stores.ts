@@ -1,3 +1,4 @@
+import { klona } from 'klona/json';
 import { writable } from 'svelte/store';
 import * as assert from 'uvu/assert';
 
@@ -34,6 +35,8 @@ export const result = writable<Result>({
 export async function send(req: gd.Request, validation?: string): Promise<void> {
 	let headers = new Headers;
 	let url = new URL(req.url, 'http://localhost:8080'); // TODO: $baseurl here
+
+	console.log('SEND', { req });
 
 	// TODO: use codemirror/etc for editor w/ intellisense
 	// TODO: have user write the contents w/ TLA -> new Function(args, contents);
@@ -91,7 +94,7 @@ export async function send(req: gd.Request, validation?: string): Promise<void> 
 	else if (ctype.includes('/x-www-form-urlencoded')) content = await res.formData();
 	else content = await res.arrayBuffer();
 
-	let clone = { ...req };
+	let clone = klona(req);
 	recents.update(arr => arr.concat(clone));
 	result.set({ res, time, valid, length, content });
 }
