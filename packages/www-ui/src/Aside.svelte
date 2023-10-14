@@ -3,7 +3,7 @@
 	import Thumb from './tags/Thumb.svelte';
 	import { suites, request, recents } from './stores';
 
-	function onreset(ev: ClickEvent) {
+	function onreset(ev: Event) {
 		ev.preventDefault();
 		request.set({
 			method: 'GET',

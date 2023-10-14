@@ -6,9 +6,12 @@
     "www:build": "npm run build -C packages/www-ui",
     "www:dev": "npm run dev -C packages/www-ui"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@types/node": "18.0.3",
     "esbuild": "0.14.48",
-    "tsm": "2.2.1"
+    "tsm": "2.3.0"
   }
 }
